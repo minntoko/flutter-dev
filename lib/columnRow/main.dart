@@ -6,15 +6,18 @@ void main() {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Image.asset('assets/images/yellowArien.jpg'),
+      children: const [
+        Text("りんごパイ"),
+        Text("ぶどう"),
+        Text("レモン"),
       ]);
 
   final row = Row(
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     crossAxisAlignment: CrossAxisAlignment.center,
-    children: [col],
+    children: [col, col, col],
   );
+  ;
 
   final a = MaterialApp(home: Scaffold(body: Center(child: row)));
 

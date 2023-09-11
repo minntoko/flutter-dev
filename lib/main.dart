@@ -1,29 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  final controller = TextEditingController();
+  const app = MaterialApp(home: Sample());
+  const scope = ProviderScope(child: app);
+  runApp(scope);
+}
 
-  final textField = TextField(
-    controller: controller,
-    decoration: InputDecoration(
-      border: OutlineInputBorder(),
-      labelText: 'あなたの名前',
-      hintText: 'カタカナで入力',
-      errorText: '名前が長すぎます'));
+final nicknameProvider = StateProvider<String>((ref) {
+  return "みんとこ";
+});
 
-  xxxx() {
-    debugPrint(controller.text);
+class Sample extends ConsumerWidget {
+  const Sample({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final nickname = ref.watch(nicknameProvider);
+    return Scaffold(
+      appBar: AppBar(title: Text(nickname),),
+      body: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(nickname),
+            ElevatedButton(onPressed: () => tapA(ref), child: const Text('A')),
+            ElevatedButton(onPressed: () => tapB(ref), child: const Text('B')),
+            ElevatedButton(onPressed: () => tapC(ref), child: const Text('C')),
+            Text(nickname),
+          ]
+        ),
+      )
+    );
   }
 
-  final button = ElevatedButton(onPressed: xxxx, child: Text('押してください'));
+  tapA(WidgetRef ref) {
+    final notifier = ref.read(nicknameProvider.notifier);
+    notifier.state = "みんとこ";
+  }
 
-  final a = MaterialApp(
-      home: Scaffold(
-          body: Center(
-              child: Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [textField, button],
-  ))));
-
-  runApp(a);
+  tapB(WidgetRef ref) {
+    final notifier = ref.read(nicknameProvider.notifier);
+    notifier.state = "Minntoko";
+    }
+  tapC(WidgetRef ref) {
+    final notifier = ref.read(nicknameProvider.notifier);
+    notifier.state = "眠常";
+    }
 }

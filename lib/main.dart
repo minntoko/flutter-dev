@@ -1,52 +1,131 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:myapp/page_a.dart';
-import 'package:myapp/page_b.dart';
-import 'package:myapp/page_C.dart';
+import 'package:riverpod/riverpod.dart';
 
-void main() {
+main() {
   // アプリ
-  const app = MaterialApp(home: Root());
+  const app = MaterialApp(home: Home());
 
   // プロバイダースコープでアプリを囲む
   const scope = ProviderScope(child: app);
   runApp(scope);
 }
 
-final indexProvider = StateProvider((ref) {
-  return 0;
+// トグルスイッチが ON(true)か Off(false)
+final isOnProvider = StateProvider((ref) {
+  return true;
 });
 
-class Root extends ConsumerWidget {
-  const Root({super.key});
+// スライダーの数値
+final valueProvider = StateProvider((ref) {
+  return 0.0;
+});
+
+// レンジスライダーの範囲
+final rangeProvider = StateProvider((ref) {
+  return const RangeValues(0.0, 1.0);
+});
+
+class Home extends ConsumerWidget {
+  const Home({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // インデックス
-    final index = ref.watch(indexProvider);
-
-    // アイテムたち
-    const items = [
-      BottomNavigationBarItem(icon: Icon(Icons.person), label: 'アイテムA'),
-      BottomNavigationBarItem(icon: Icon(Icons.home), label: 'アイテムB'),
-      BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'アイテムC'),
-    ];
-
-    final bar = BottomNavigationBar(
-      items: items,
-      backgroundColor: Colors.white,
-      selectedItemColor: Colors.blue,
-      unselectedItemColor: Colors.black87,
-      currentIndex: index,
-      onTap: (index) {
-        ref.read(indexProvider.notifier).state = index;
+    // トグルスイッチ
+    final isOn = ref.watch(isOnProvider);
+    final toggleSwitch = Switch(
+      value: isOn,
+      onChanged: (isOn) {
+        ref.read(isOnProvider.notifier).state = isOn;
       },
+      activeColor: Colors.blue[400],
+      activeTrackColor: Colors.grey,
+      inactiveThumbColor: Colors.white,
+      inactiveTrackColor: Colors.grey,
     );
 
-    final pages = [PageA(), PageB(), PageC()];
+    // 太陽
+    const sun = Icon(
+      Icons.light_mode,
+      color: Colors.orange,
+      size: 80,
+    );
+    // 月
+    const moon = Icon(
+      Icons.dark_mode,
+      color: Colors.yellow,
+      size: 80,
+    );
+
+    final sunOrMoon = isOn ? sun : moon;
+
+    final toggle = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        toggleSwitch,
+        sunOrMoon,
+      ],
+    );
+
+    // スライダー
+    final value = ref.watch(valueProvider);
+    final slider = Slider(
+      value: value,
+      onChanged: (value) {
+        ref.read(valueProvider.notifier).state = value;
+      },
+      thumbColor: Colors.blue[400],
+      activeColor: Colors.blue[400],
+      inactiveColor: Colors.grey,
+    );
+
+    // 雲
+    final cloud = Icon(
+      Icons.cloud,
+      color: Colors.grey,
+      size: value * 200 + 5,
+    );
+
+    // レンジスライダー
+    final range = ref.watch(rangeProvider);
+    final rangeSlider = RangeSlider(
+      values: range,
+      onChanged: (range) {
+        ref.read(rangeProvider.notifier).state = range;
+      },
+      activeColor: Colors.blue,
+      inactiveColor: Colors.grey,
+    );
+
+    final startDegree = (range.start * 50).round();
+    final endDegree = (range.end * 50).round();
+    final degreeText = Text(
+      '$startDegree ~ $endDegree 度',
+      style: const TextStyle(fontSize: 26),
+    );
+
+    final sliders =
+        Column(children: [slider, const Spacer(), cloud, const Spacer()]);
+
     return Scaffold(
-      body: pages[index],
-      bottomNavigationBar: bar,
+      appBar: AppBar(
+        title: const Text('スイッチ・スライダー編'),
+      ),
+      body: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          const Spacer(),
+          toggle,
+          SizedBox(
+            height: 300,
+            child: sliders,
+          ),
+          rangeSlider,
+          degreeText,
+          const Spacer(),
+        ],
+      )),
     );
   }
 }

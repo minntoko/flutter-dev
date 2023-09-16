@@ -1,131 +1,105 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod/riverpod.dart';
 
 main() {
-  // アプリ
   const app = MaterialApp(home: Home());
-
-  // プロバイダースコープでアプリを囲む
   const scope = ProviderScope(child: app);
   runApp(scope);
 }
 
-// トグルスイッチが ON(true)か Off(false)
-final isOnProvider = StateProvider((ref) {
-  return true;
-});
+// 選ばれたラジオボタンのID
+final radioIdProvider = StateProvider<String?>(
+  (ref) {
+    return null;
+  },
+);
 
-// スライダーの数値
-final valueProvider = StateProvider((ref) {
-  return 0.0;
-});
-
-// レンジスライダーの範囲
-final rangeProvider = StateProvider((ref) {
-  return const RangeValues(0.0, 1.0);
-});
+// 選ばれたチェックボックスのIDたち
+final checkedIdsProvider = StateProvider<Set<String>>(
+  (ref) {
+    return {};
+  },
+);
 
 class Home extends ConsumerWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // トグルスイッチ
-    final isOn = ref.watch(isOnProvider);
-    final toggleSwitch = Switch(
-      value: isOn,
-      onChanged: (isOn) {
-        ref.read(isOnProvider.notifier).state = isOn;
-      },
-      activeColor: Colors.blue[400],
-      activeTrackColor: Colors.grey,
-      inactiveThumbColor: Colors.white,
-      inactiveTrackColor: Colors.grey,
-    );
+    // ラジオボタンIDに合わせて画面を変化
+    final radioId = ref.watch(radioIdProvider);
+    // チェックボックスIDたちに合わせて画面を変化
+    final checkedIds = ref.watch(checkedIdsProvider);
 
-    // 太陽
-    const sun = Icon(
-      Icons.light_mode,
-      color: Colors.orange,
-      size: 80,
-    );
-    // 月
-    const moon = Icon(
-      Icons.dark_mode,
-      color: Colors.yellow,
-      size: 80,
-    );
+    // ラジオボタンが押された時の関数
+    void onChangeRadio(String? id) {
+      ref.read(radioIdProvider.notifier).state = id;
+    }
 
-    final sunOrMoon = isOn ? sun : moon;
+    // チェックボックスを押された時の関数
+    void onChangedCheckbox(String id) {
+      final newSet = Set.of(checkedIds);
 
-    final toggle = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      if (newSet.contains(id)) {
+        // 既にチェックされていたら取り除く
+        newSet.remove(id);
+      } else {
+        // まだチェックされていなければ追加
+        newSet.add(id);
+      }
+      ref.read(checkedIdsProvider.notifier).state = newSet;
+    }
+
+    final col = Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        toggleSwitch,
-        sunOrMoon,
+        RadioListTile(
+          value: "A",
+          groupValue: radioId,
+          onChanged: onChangeRadio,
+          title: const Text('ラジオボタンA'),
+        ),
+        RadioListTile(
+          value: "B",
+          groupValue: radioId,
+          onChanged: onChangeRadio,
+          title: const Text('ラジオボタンB'),
+        ),
+        RadioListTile(
+          value: "C",
+          groupValue: radioId,
+          onChanged: onChangeRadio,
+          title: const Text('ラジオボタンC'),
+        ),
+
+        // チェックボックスたち
+
+        CheckboxListTile(
+            value: checkedIds.contains('A'),
+            onChanged: (check) => onChangedCheckbox('A'),
+            title: const Text('チェックボックスA')),
+        CheckboxListTile(
+            value: checkedIds.contains('B'),
+            onChanged: (check) => onChangedCheckbox('B'),
+            title: const Text('チェックボックスB')),
+        CheckboxListTile(
+            value: checkedIds.contains('C'),
+            onChanged: (check) => onChangedCheckbox('C'),
+            title: const Text('チェックボックスC')),
+
+        // okボタン
+        ElevatedButton(
+            onPressed: () {
+              print(radioId);
+              print(checkedIds);
+            },
+            child: const Text('ok'))
       ],
     );
 
-    // スライダー
-    final value = ref.watch(valueProvider);
-    final slider = Slider(
-      value: value,
-      onChanged: (value) {
-        ref.read(valueProvider.notifier).state = value;
-      },
-      thumbColor: Colors.blue[400],
-      activeColor: Colors.blue[400],
-      inactiveColor: Colors.grey,
-    );
-
-    // 雲
-    final cloud = Icon(
-      Icons.cloud,
-      color: Colors.grey,
-      size: value * 200 + 5,
-    );
-
-    // レンジスライダー
-    final range = ref.watch(rangeProvider);
-    final rangeSlider = RangeSlider(
-      values: range,
-      onChanged: (range) {
-        ref.read(rangeProvider.notifier).state = range;
-      },
-      activeColor: Colors.blue,
-      inactiveColor: Colors.grey,
-    );
-
-    final startDegree = (range.start * 50).round();
-    final endDegree = (range.end * 50).round();
-    final degreeText = Text(
-      '$startDegree ~ $endDegree 度',
-      style: const TextStyle(fontSize: 26),
-    );
-
-    final sliders =
-        Column(children: [slider, const Spacer(), cloud, const Spacer()]);
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('スイッチ・スライダー編'),
-      ),
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          const Spacer(),
-          toggle,
-          SizedBox(
-            height: 300,
-            child: sliders,
-          ),
-          rangeSlider,
-          degreeText,
-          const Spacer(),
-        ],
-      )),
+      appBar: AppBar(title: const Text('ラジオボタン・チェックボックス編')),
+      body: col,
     );
   }
 }

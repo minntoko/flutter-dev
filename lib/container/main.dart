@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 void main() {
   // ignore: prefer_const_constructors
-  final col = Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Image.asset('assets/images/yellowArien.jpg'),
-      ]);
+  // final col = Column(
+  //     mainAxisSize: MainAxisSize.min,
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     crossAxisAlignment: CrossAxisAlignment.center,
+  //     children: [
+  //       Image.asset('assets/images/yellowArien.jpg'),
+  //     ]);
 
   final con = Container(
     color: Colors.lightBlue,

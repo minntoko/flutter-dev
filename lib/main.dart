@@ -1,96 +1,59 @@
-import 'dart:convert';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:myapp/pack.dart';
-import 'package:myapp/recipe.dart';
-import 'package:myapp/vegetable.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-  test6();
+  // OFL を守るために このコードが必要
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString(
+      'assets/google_fonts/OFL.txt',
+    );
+    debugPrint(license);
+    yield LicenseEntryWithLineBreaks(
+      ['google_fonts'],
+      license,
+    );
+  });
+  const app = MyApp();
+  runApp(app);
 }
 
-// 練習用の関数
-void test1() async {
-  // Stubを使えるようにする
-  WidgetsFlutterBinding.ensureInitialized();
-  // JSON <---- Stub
-  final json = await rootBundle.loadString('assets/stub/level1.json');
-  debugPrint('JSONの中身:$json');
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-  // JsonMap <---- JSON
-  final map = jsonDecode(json);
-  debugPrint('Jsonmapの中身:$map');
-
-  // 野菜データ <---- JsonMap
-  final data = Vegetable.fromJson(map);
-  debugPrint('dataの中身:$data');
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(home: HomePage());
+  }
 }
 
-void test2() async {
-  // 適当な野菜のデータ
-  const data = Vegetable(name: 'キャベツ', color: '緑', season: '春と冬');
-  // JsonMap <---- 野菜データ
-  final map = data.toJson();
-  // JSON <---- JsonMap
-  final json = jsonEncode(map);
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
-  // JSONの中身を確認
-  debugPrint('JSONの中身は$json');
-}
-
-void test3() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  final json = await rootBundle.loadString('assets/stub/level2.json');
-
-  final map = jsonDecode(json);
-
-  final data = Pack.fromJson(map);
-
-  debugPrint('データの中身は$data');
-}
-
-void test4() async {
-  // 適当な野菜
-  const content = Vegetable(name: 'アボガド', color: '濃い緑', season: '秋');
-  const data = Pack(size: '中', price: 800, content: content);
-
-  final map = data.toJson();
-
-  final json = jsonEncode(map);
-
-  debugPrint(json);
-}
-
-void test5() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final json = await rootBundle.loadString('assets/stub/level3.json');
-  final map = jsonDecode(json);
-  final data = Recipe.fromJson(map);
-  debugPrint('データの中身は$data');
-}
-
-void test6() async {
-  const vegetables = [
-    Vegetable(
-      name: 'しょうが',
-      color: '黄色',
-      season: '秋',
-    ),
-    Vegetable(
-      name: 'かぶ',
-      color: '白',
-      season: '冬',
-    ),
-    Vegetable(
-      name: 'たけのこ',
-      color: '茶色',
-      season: '春',
-    ),
-  ];
-  const data = Recipe(title: '健康スープ', calories: 500, vegetables: vegetables);
-  final map = data.toJson();
-  final json = jsonEncode(map);
-  debugPrint(json);
+  @override
+  Widget build(BuildContext context) {
+    final text = Text(
+      'バナナ美味しい',
+      style: GoogleFonts.hachiMaruPop(
+        fontSize: 40,
+        fontWeight: FontWeight.w600,
+      ),
+    );
+    return Scaffold(
+      appBar: AppBar(title: const Text('hello')),
+      body: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          text,
+          ElevatedButton(
+              onPressed: () {
+                showLicensePage(context: context);
+              },
+              child: const Text('ボタン'))
+        ],
+      )),
+    );
+  }
 }

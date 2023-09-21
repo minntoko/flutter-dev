@@ -1,21 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/accordion.dart';
+import 'package:myapp/goRouter/main.dart';
 
 void main() {
-  const flavor = String.fromEnvironment('flavor');
-
-  if (flavor == 'dev') {
-    // ここはdevの時だけ
-  }
-
-  if (flavor == 'stg') {
-    // ここはstgの時だけ
-    debugPrint('バナナだぁぁぁあああ');
-  }
-
-  if (flavor == 'prd') {
-    // ここはprdの時だけ
-  }
-
   const app = MyApp();
   runApp(app);
 }
@@ -34,6 +21,39 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text('テンプレート')));
+    final column = Column(
+      children: [
+        Accordion(
+            title: "バナナ",
+            headColor: Colors.orange,
+            bodyColor: Colors.orange.shade200,
+            imageName: "assets/images/banana.png"),
+        Accordion(
+            title: "レモン",
+            headColor: Colors.amber,
+            bodyColor: Colors.amber.shade200,
+            imageName: "assets/images/lemon.png"),
+        Accordion(
+            title: "ぶどう",
+            headColor: Colors.purple,
+            bodyColor: Colors.purple.shade200,
+            imageName: "assets/images/grape.png"),
+        Accordion(
+            title: "いちご",
+            headColor: Colors.red,
+            bodyColor: Colors.red.shade200,
+            imageName: "assets/images/strawberry.png"),
+        Accordion(
+            title: "スイカ",
+            headColor: Colors.green,
+            bodyColor: Colors.green.shade200,
+            imageName: "assets/images/watermelon.png"),
+      ],
+    );
+    return Scaffold(
+        appBar: AppBar(title: const Text('アコーディオン編')),
+        body: SingleChildScrollView(
+          child: column,
+        ));
   }
 }

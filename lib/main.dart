@@ -1,8 +1,13 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/accordion.dart';
-import 'package:myapp/goRouter/main.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   const app = MyApp();
   runApp(app);
 }
@@ -21,39 +26,17 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final column = Column(
-      children: [
-        Accordion(
-            title: "バナナ",
-            headColor: Colors.orange,
-            bodyColor: Colors.orange.shade200,
-            imageName: "assets/images/banana.png"),
-        Accordion(
-            title: "レモン",
-            headColor: Colors.amber,
-            bodyColor: Colors.amber.shade200,
-            imageName: "assets/images/lemon.png"),
-        Accordion(
-            title: "ぶどう",
-            headColor: Colors.purple,
-            bodyColor: Colors.purple.shade200,
-            imageName: "assets/images/grape.png"),
-        Accordion(
-            title: "いちご",
-            headColor: Colors.red,
-            bodyColor: Colors.red.shade200,
-            imageName: "assets/images/strawberry.png"),
-        Accordion(
-            title: "スイカ",
-            headColor: Colors.green,
-            bodyColor: Colors.green.shade200,
-            imageName: "assets/images/watermelon.png"),
-      ],
-    );
     return Scaffold(
-        appBar: AppBar(title: const Text('アコーディオン編')),
-        body: SingleChildScrollView(
-          child: column,
-        ));
+        body: Center(
+      // ボタン
+      child: ElevatedButton(
+        onPressed: () {
+          FirebaseAnalytics.instance.logEvent(
+            name: 'ボタンが押されました',
+          );
+        },
+        child: const Text('ボタン'),
+      ),
+    ));
   }
 }

@@ -1,13 +1,7 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'package:myapp/service.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+void main() {
   const app = MyApp();
   runApp(app);
 }
@@ -27,16 +21,15 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-      // ボタン
-      child: ElevatedButton(
-        onPressed: () {
-          FirebaseAnalytics.instance.logEvent(
-            name: 'ボタンが押されました',
-          );
-        },
-        child: const Text('ボタン'),
-      ),
-    ));
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () async {
+            final service = AuthService();
+            await service.signIn();
+          },
+          child: const Text('Googleでサインイン')
+        )
+      )
+    );
   }
 }

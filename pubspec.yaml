@@ -7,6 +7,7 @@ version: 1.0.0+1
 environment:
   sdk: ">=3.1.0 <4.0.0"
 dependencies:
+  device_preview:
   google_sign_in:
   firebase_auth:
   google_fonts: ^6.0.0

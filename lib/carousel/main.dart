@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/listView/main.dart';
 
 void main() {
   const app = MaterialApp(

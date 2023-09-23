@@ -1,2 +1,1 @@
-* linguist-vendored
-lib/* linguist-vendored=false
+lib/* !export-ignore

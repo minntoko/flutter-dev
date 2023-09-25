@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:myapp/season_dropdown.dart';
-import 'package:myapp/season_flower.dart';
-import 'package:myapp/season_time.dart';
+import 'package:myapp/env.dart';
 
 void main() {
   const app = MyApp();
-  const scope = ProviderScope(child: app);
-  runApp(scope);
+  runApp(app);
 }
 
 class MyApp extends StatelessWidget {
@@ -24,14 +20,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-        body: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-          SeasonDropdown(),
-          SeasonTime(),
-          SeasonFlower(),
-        ])));
+    return Scaffold(
+      body: Center(child: Text(Env.pass1)));
   }
 }

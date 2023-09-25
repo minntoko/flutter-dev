@@ -7,6 +7,7 @@ version: 1.0.0+1
 environment:
   sdk: ">=3.1.0 <4.0.0"
 dependencies:
+  envied:
   device_preview:
   google_sign_in:
   # firebase_auth:
@@ -24,6 +25,7 @@ dependencies:
 dev_dependencies:
   freezed:
   build_runner:
+  envied_generator:
   json_serializable:
   flutter_test:
     sdk: flutter

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:myapp/season.dart';
+import 'package:myapp/dropdown/season.dart';
 
 final seasonProvider = StateProvider<Season>((ref) {
   return Season.spring;

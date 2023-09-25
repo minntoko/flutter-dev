@@ -1,35 +1,35 @@
-import 'package:flutter/material.dart';
-import 'package:myapp/firebaseAuth/service.dart';
+// import 'package:flutter/material.dart';
+// import 'package:myapp/firebaseAuth/service.dart';
 
-void main() {
-  const app = MyApp();
-  runApp(app);
-}
+// void main() {
+//   const app = MyApp();
+//   runApp(app);
+// }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(home: HomePage());
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return const MaterialApp(home: HomePage());
+//   }
+// }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+// class HomePage extends StatelessWidget {
+//   const HomePage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () async {
-            final service = AuthService();
-            await service.signIn();
-          },
-          child: const Text('Googleでサインイン')
-        )
-      )
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(
+//         child: ElevatedButton(
+//           onPressed: () async {
+//             final service = AuthService();
+//             await service.signIn();
+//           },
+//           child: const Text('Googleでサインイン')
+//         )
+//       )
+//     );
+//   }
+// }

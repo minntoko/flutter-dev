@@ -9,7 +9,7 @@ environment:
 dependencies:
   device_preview:
   google_sign_in:
-  firebase_auth:
+  # firebase_auth:
   google_fonts: ^6.0.0
   freezed_annotation:
   percent_indicator:

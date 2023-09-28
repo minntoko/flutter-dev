@@ -16,15 +16,19 @@ dependencies:
   percent_indicator:
   go_router:
   flutter_riverpod:
+  riverpod_annotation:
+  flutter_hooks:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
   firebase_core: ^2.16.0
   firebase_analytics:
+  shared_preferences:
 
 dev_dependencies:
   freezed:
   build_runner:
+  riverpod_generator:
   envied_generator:
   json_serializable:
   flutter_test:

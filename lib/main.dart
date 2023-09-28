@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/lemon_dialog.dart';
-import 'package:myapp/pineapple_dialog.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:myapp/widgets.dart';
 
 void main() {
   const app = MyApp();
-  runApp(app);
+  const scope = ProviderScope(child: app);
+  runApp(scope);
 }
 
 class MyApp extends StatelessWidget {
@@ -16,27 +18,20 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends HookWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = useTextEditingController();
     return Scaffold(
-        body: Center(
-            child: ElevatedButton(
-                onPressed: () async {
-                  // レモンダイアログを表示
-                  final lemonAnswer = await showDialog(
-                      context: context, builder: (_) => const LemonDialog());
-                  debugPrint(lemonAnswer);
-
-                  // パイナップルダイアログを表示
-                  // ignore: use_build_context_synchronously
-                  final pineappleAnswer = await showDialog(
-                      context: context,
-                      builder: (_) => const PineappleDialog());
-                  debugPrint(pineappleAnswer);
-                },
-                child: const Text('開く'))));
+        body: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        const DrinkText(),
+        DrinkTextField(controller: controller),
+        DrinkSaveButton(controller: controller),
+      ],
+    ));
   }
 }

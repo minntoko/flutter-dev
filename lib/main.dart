@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:myapp/widgets.dart';
+import 'package:myapp/screens/home/home_screen.dart';
 
 void main() {
   const app = MyApp();
-  const scope = ProviderScope(child: app);
-  runApp(scope);
+  runApp(app);
 }
 
 class MyApp extends StatelessWidget {
@@ -14,24 +11,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomePage());
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "Flutter shop",
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          fontFamily: "Gordita",
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
+          textTheme: const TextTheme(
+            bodyMedium: TextStyle(color: Colors.black54),
+          ),
+        ),
+        home: const HomeScreen());
   }
 }
 
-class HomePage extends HookWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final controller = useTextEditingController();
-    return Scaffold(
-        body: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        const DrinkText(),
-        DrinkTextField(controller: controller),
-        DrinkSaveButton(controller: controller),
-      ],
-    ));
-  }
-}

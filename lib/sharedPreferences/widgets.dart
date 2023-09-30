@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:myapp/state.dart';
+import 'package:myapp/sharedPreferences/state.dart';
 
 class DrinkText extends ConsumerWidget {
   const DrinkText({super.key});

@@ -20,6 +20,7 @@ dependencies:
   flutter_hooks:
   flutter:
     sdk: flutter
+  flutter_svg:
   cupertino_icons: ^1.0.2
   firebase_core: ^2.16.0
   firebase_analytics:
@@ -39,4 +40,16 @@ flutter:
     - assets/images/
     - assets/stub/
     - assets/google_fonts/
+    - assets/icons/
+
+  fonts:
+  - family: Gordita
+    fonts:
+      - asset: assets/fonts/Gordita_Regular.otf
+      - asset: assets/fonts/Gordita_Medium.otf
+        weight: 500
+      - asset: assets/fonts/Gordita_Bold.otf
+        weight: 700
+      - asset: assets/fonts/Gordita_Light.otf
+        weight: 300
   uses-material-design: true

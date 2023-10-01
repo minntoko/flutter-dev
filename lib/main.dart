@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:myapp/constants.dart';
 import 'package:myapp/screens/home/home_screen.dart';
 
@@ -16,6 +17,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: "Flutter shop",
         theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+            systemOverlayStyle: SystemUiOverlayStyle.dark,
+          ),
           primarySwatch: Colors.blue,
           fontFamily: "Gordita",
           scaffoldBackgroundColor: bgColor,

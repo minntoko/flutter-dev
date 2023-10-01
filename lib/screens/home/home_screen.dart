@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:myapp/constants.dart';
+import 'package:myapp/screens/home/components/categories.dart';
+import 'package:myapp/screens/home/components/search_form.dart';
+import 'package:myapp/screens/home/components/section_title.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -9,7 +12,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const outlineInputBorder = OutlineInputBorder(
         borderRadius: BorderRadius.all(
-          Radius.circular(defaultBorderRadius),
+          Radius.circular(defaultBorderRadius * 1.2),
         ),
         borderSide: BorderSide.none);
     return Scaffold(
@@ -23,13 +26,19 @@ class HomeScreen extends StatelessWidget {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset("assets/icons/Location.svg"),
-              const SizedBox(
-                width: defaultPadding / 2,
+              SvgPicture.asset(
+                "assets/icons/flutter.svg",
+                height: 20,
               ),
-              Text(
-                'Flutter Shop',
-                style: Theme.of(context).textTheme.titleSmall,
+              const SizedBox(
+                width: defaultPadding / 4,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 2),
+                child: Text(
+                  'Flutter Shop',
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
               )
             ],
           ),
@@ -52,34 +61,17 @@ class HomeScreen extends StatelessWidget {
                     .copyWith(fontWeight: FontWeight.bold, color: Colors.black),
               ),
               const Text("best Outfits for you"),
-              Card(
-                elevation: 1, // 影の高さを調整します
-                child: Form(
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: "キーワードから探す",
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: outlineInputBorder,
-                      enabledBorder: outlineInputBorder,
-                      focusedBorder: outlineInputBorder,
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: SvgPicture.asset("assets/icons/Search.svg"),
-                      ),
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: primaryColor,
-                          ),
-                          child: SvgPicture.asset("assets/icons/Filter.svg"),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: defaultPadding),
+                child: SearchForm(outlineInputBorder: outlineInputBorder),
+              ),
+              const Categories(),
+              const SizedBox(
+                height: defaultPadding,
+              ),
+              SectionTitle(
+                title: "新着アイテム",
+                pressSeeAll: () {},
               )
             ],
           ),

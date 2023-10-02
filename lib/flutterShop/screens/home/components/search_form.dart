@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:myapp/constants.dart';
+import 'package:myapp/flutterShop/constants.dart';
 
 class SearchForm extends StatelessWidget {
   const SearchForm({

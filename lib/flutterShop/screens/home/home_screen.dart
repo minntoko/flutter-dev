@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:myapp/constants.dart';
-import 'package:myapp/screens/home/components/categories.dart';
-import 'package:myapp/screens/home/components/new_arrival.dart';
-import 'package:myapp/screens/home/components/popular.dart';
-import 'package:myapp/screens/home/components/search_form.dart';
+import 'package:myapp/flutterShop/constants.dart';
+import 'package:myapp/flutterShop/screens/home/components/categories.dart';
+import 'package:myapp/flutterShop/screens/home/components/new_arrival.dart';
+import 'package:myapp/flutterShop/screens/home/components/popular.dart';
+import 'package:myapp/flutterShop/screens/home/components/search_form.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

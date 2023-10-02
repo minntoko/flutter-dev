@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:myapp/constants.dart';
-import 'package:myapp/models/Product.dart';
-import 'package:myapp/screens/details/components/color_dots.dart';
+import 'package:myapp/flutterShop/constants.dart';
+import 'package:myapp/flutterShop/models/Product.dart';
+import 'package:myapp/flutterShop/screens/details/components/color_dots.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key, required this.product});

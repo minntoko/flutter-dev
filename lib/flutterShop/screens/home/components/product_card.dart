@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/constants.dart';
+import 'package:myapp/flutterShop/constants.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({

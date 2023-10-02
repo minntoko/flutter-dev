@@ -16,25 +16,25 @@ class Product {
 List<Product> demoProduct = [
   Product(
     image: "assets/images/product_0.png",
-    title: "Long Sleeve Shirts",
-    price: 165,
+    title: "ロングスリーブシャツ",
+    price: 1650,
     bgColor: const Color(0xFFFEFBF9),
   ),
   Product(
     image: "assets/images/product_1.png",
-    title: "Casual Henley Shirts",
-    price: 99,
+    title: "Casual Henley シャツ",
+    price: 990,
   ),
   Product(
     image: "assets/images/product_2.png",
-    title: "Curved Hem Shirts",
-    price: 180,
+    title: "Curved Hem シャツ",
+    price: 1800,
     bgColor: const Color(0xFFF8FEFB),
   ),
   Product(
     image: "assets/images/product_3.png",
-    title: "Casual Nolin",
-    price: 149,
+    title: "カジュアル カーキ",
+    price: 1490,
     bgColor: const Color(0xFFEEEEED),
   ),
 ];

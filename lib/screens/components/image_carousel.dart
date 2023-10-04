@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/constants.dart';
 import 'package:myapp/demoData.dart';
-import 'package:myapp/flutterShop/constants.dart';
 
 class ImageCarousel extends StatefulWidget {
   const ImageCarousel({
